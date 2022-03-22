@@ -4,10 +4,57 @@
         <meta charset="UTF-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Materialize CDN link - Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" type="text/css">
+        <!-- Materialize icons CDN link -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- custom css link -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" type="text/css">
+
         <title>Task Manager</title>
     </head>
     <body>
-        <h1>Hello world</h1>
+        <header>
+            <!-- top of the screen navbar -->
+            <nav class="cyan darken-1">
+                <div class="nav-wrapper">
+                  <a href="{{ url_for('home') }}" class="brand-logo">Task Manager</a>
+                  <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
+                  <ul class="right hide-on-med-and-down">
+                      <!-- links refer to the route functions we create in routes.py -->
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
+                    <li><a href="">New Task</a></li>
+                    <li><a href="">Categories</a></li>
+                  </ul>
+                </div>
+              </nav>
+            
+              <!-- mobile sidenav -->
+              <ul class="sidenav" id="mobile-demo">
+                <li><a href="{{ url_for('home') }}">Home</a></li>
+                <li><a href="">New Task</a></li>
+                <li><a href="">Categories</a></li>
+              </ul>
+        </header>
+
+        <main class="container">
+            {% block content %}
+            {% endblock %}
+        </main>
+
+        <footer class="page-footer cyan darken-3">
+            <div class="footer-copyright">
+                <div class="container">
+                    for educational purposes only
+                    <a class="white-text right" href="http://codeinstitute.net" target="_blank">&copy; Code Institute</a>
+                </div>
+            </div>
+        </footer>
     
+        <!-- Materialize CDN link - Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <!-- custom js link -->
+        <script src="{{ url_for('static', filename='js/script.js') }}"></script>
     </body>
 </html>

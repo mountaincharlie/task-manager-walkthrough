@@ -13,4 +13,22 @@
         </div>
     </div>
 
+    <div class="row">
+        <!-- creating the for loop to add the cards in the same row -->
+        {% for category in categories %}
+            <!-- full width on small screen, half on med and 1/4 on large -->
+            <div class="col s12 m6 l3">
+                <div class="card cyan darken-4 center-align">
+                    <div class="card-content white-text">
+                        <span class="card-title">{{ category.category_name }}</span>
+                    </div>
+                    <div class="card-action">
+                        <a href="{{ url_for('edit_category', category_id=category.id) }}" class="btn green accent-4">Edit</a>
+                        <a href="#" class="btn red">Delete</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+
 {% endblock %}

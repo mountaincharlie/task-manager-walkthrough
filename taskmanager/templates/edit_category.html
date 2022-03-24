@@ -1,0 +1,30 @@
+<!-- an extention of our base.html -->
+{% extends "base.html" %}
+{% block content %}
+
+    <h3 class="cyan-text text-darken-4 center-align">Edit Category</h3>
+
+    <!-- one row the materlize form with card-panel class added -->
+    <div class="row card-panel teal lighten-5">
+        <form class="col s12" method="POST" action="{{ url_for('edit_category', category_id=category.id) }}">
+            <!-- adding prefix icon, name attr and min/maxlength attrs -->
+            <!-- catgeory name -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix cyan-text text-darken-4">assignment</i>
+                    <input id="category_name" name="category_name" value="{{ category.category_name }}" minlength="3" maxlength="25" type="text" class="validate">
+                    <label for="category_name">Category Name</label>
+                </div>
+            </div>
+            <!-- submit button -->
+            <div class="row">
+                <div class="input-field col s12 center-align">
+                    <button class="btn-large teal" type="submit">
+                        Edit Category <i class="material-icons right">brush</i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

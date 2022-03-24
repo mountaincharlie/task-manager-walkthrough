@@ -1,0 +1,75 @@
+<!-- an extention of our base.html -->
+{% extends "base.html" %}
+{% block content %}
+
+    <h3 class="cyan-text text-darken-4 center-align">Add Task</h3>
+
+    <!-- one row the materlize form with card-panel class added -->
+    <div class="row card-panel teal lighten-5">
+        <form class="col s12" method="POST" action="{{ url_for('add_task') }}">
+            <!-- adding prefix icon, name attr and min/maxlength attrs -->
+            <!-- task name -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix cyan-text text-darken-4">content_paste</i>
+                    <input id="task_name" name="task_name" minlength="5" maxlength="50" type="text" class="validate">
+                    <label for="task_name">Task Name</label>
+                </div>
+            </div>
+            <!-- task description -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix cyan-text text-darken-4">create</i>
+                    <textarea id="task_description" name="task_description" minlength="5" maxlength="200" type="text" class="materialize-textarea validate"></textarea>
+                    <label for="task_description">Task Description</label>
+                </div>
+            </div>
+            <!-- task due date -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix cyan-text text-darken-4">perm_contact_calendar</i>
+                    <input id="due_date" name="due_date" type="text" class="datepicker validate">
+                    <label for="due_date">Due Date</label>
+                </div>
+            </div>
+            <!-- task is_urgent -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <!-- materialize toggle Switch -->
+                    <div class="switch">
+                        <i class="material-icons prefix cyan-text text-darken-4">priority_high</i>
+                        <label for="is_urgent">
+                            <input id="is_urgent" name="is_urgent" type="checkbox">
+                            <span class="lever"></span>
+                            Is Urgent
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <!-- category_id -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix cyan-text text-darken-4">assignment</i>
+                    <select id="category_id" name="category_id" class="validate" required>
+                        <option value="" disabled selected>Choose Category</option>
+                        <!-- loop for displaying the category options -->
+                        {% for category in categories %}
+                        <option value="{{ category.id }}">{{ category.category_name }}</option>
+                        {% endfor %}
+                    </select>
+                    <label for="task_name">Task Name</label>
+                </div>
+            </div>
+
+            <!-- submit button -->
+            <div class="row">
+                <div class="input-field col s12 center-align">
+                    <button class="btn-large teal" type="submit">
+                        Add Task <i class="material-icons right">add</i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

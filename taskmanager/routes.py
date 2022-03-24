@@ -14,7 +14,10 @@ def home():
 # finds the asociated file, is called by the function name, renders the template
 @app.route("/categories")
 def categories():
-    return render_template("categories.html")
+    # querying the db for a cursor obj, converted to list, to populate the page
+    categories = list(Category.query.order_by(Category.category_name).all())
+    # variables needed in the html page need to be passed in here (var_page=var_here)
+    return render_template("categories.html", categories=categories)
 
 
 # need to specify the methods since we will be submitting a form
@@ -31,3 +34,16 @@ def add_category():
         return redirect(url_for("categories"))
     # rendered when add_category button is clicked (GET method)
     return render_template("add_category.html")
+
+
+# vars being passed back into python functions must be in <>
+@app.route("/edit_category<int:category_id>", methods=["GET", "POST"])
+def edit_category(category_id):
+    category = Category.query.get_or_404(category_id)
+    # making edits
+    if request.method == "POST":
+        # renaming on the db and taking back to the cat page
+        category.category_name = request.form.get("category_name")
+        db.session.commit()
+        return redirect(url_for("categories"))
+    return render_template("edit_category.html", category=category)

@@ -37,7 +37,7 @@ def add_category():
 
 
 # vars being passed back into python functions must be in <>
-@app.route("/edit_category<int:category_id>", methods=["GET", "POST"])
+@app.route("/edit_category/<int:category_id>", methods=["GET", "POST"])
 def edit_category(category_id):
     category = Category.query.get_or_404(category_id)
     # making edits
@@ -47,3 +47,32 @@ def edit_category(category_id):
         db.session.commit()
         return redirect(url_for("categories"))
     return render_template("edit_category.html", category=category)
+
+
+@app.route("/delete_category/<int:category_id>")
+def delete_category(category_id):
+    category = Category.query.get_or_404(category_id)  # getting the item
+    db.session.delete(category)  # deleting it
+    db.session.commit()  # commiting the changes
+    return redirect(url_for("categories"))
+
+
+@app.route("/add_task", methods=["GET", "POST"])
+def add_task():
+    # getting a list of all categories
+    categories = list(Category.query.order_by(Category.category_name).all())
+    # adding the POST functionality
+    if request.method == "POST":
+        task = Task(
+            task_name=request.form.get("task_name"),
+            task_description=request.form.get("task_description"),
+            is_urgent=bool(True if request.form.get("is_urgent") else False),
+            due_date=request.form.get("due_date"),
+            category_id=request.form.get("category_id")
+        )
+        db.session.add(task)
+        db.session.commit()
+        # returns the user to the catergories page
+        return redirect(url_for("home"))
+    # rendered when add_category button is clicked (GET method)
+    return render_template("add_task.html", categories=categories)

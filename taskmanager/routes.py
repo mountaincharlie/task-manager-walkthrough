@@ -97,3 +97,11 @@ def edit_task(task_id):
         db.session.commit()
         return redirect(url_for("home"))
     return render_template("edit_task.html", task=task, categories=categories)
+
+
+@app.route("/delete_task/<int:task_id>")
+def delete_task(task_id):
+    task = Task.query.get_or_404(task_id)  # getting the item
+    db.session.delete(task)  # deleting it
+    db.session.commit()  # commiting the changes
+    return redirect(url_for("home"))

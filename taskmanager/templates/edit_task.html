@@ -1,0 +1,87 @@
+<!-- an extention of our base.html -->
+{% extends "base.html" %}
+{% block content %}
+
+    <h3 class="cyan-text text-darken-4 center-align">Edit Task</h3>
+
+    <!-- one row the materlize form with card-panel class added -->
+    <div class="row card-panel teal lighten-5">
+        <form class="col s12" method="POST" action="{{ url_for('edit_task', task_id=task.id) }}">
+            <!-- adding prefix icon, name attr and min/maxlength attrs -->
+            <!-- existing task name (using value and req attrs) -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix cyan-text text-darken-4">content_paste</i>
+                    <input id="task_name" name="task_name" value="{{ task.task_name }}" minlength="5" maxlength="50" type="text" class="validate" required>
+                    <label for="task_name">Task Name</label>
+                </div>
+            </div>
+            <!-- existing task description (using req attr) -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix cyan-text text-darken-4">create</i>
+                    <!-- the '- -' is Jinja's whitespace control helper -->
+                    <textarea id="task_description" name="task_description" minlength="5" maxlength="200" type="text" class="materialize-textarea validate" required>
+                        {{- task.task_description -}}
+                    </textarea>
+                    <label for="task_description">Task Description</label>
+                </div>
+            </div>
+            <!-- existing task due date (using value with strftime & req attrs) -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix cyan-text text-darken-4">perm_contact_calendar</i>
+                    <input id="due_date" name="due_date" value="{{ task.due_date.strftime('%d %B, %Y') }}" type="text" class="datepicker validate">
+                    <label for="due_date">Due Date</label>
+                </div>
+            </div>
+            <!-- existing task is_urgent (using value attr) -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <!-- materialize toggle Switch -->
+                    <div class="switch">
+                        <i class="material-icons prefix cyan-text text-darken-4">priority_high</i>
+                        <label for="is_urgent">
+                            <!-- if block to check if the task is already urgent -->
+                            {% if task.is_urgent == True %}
+                                <input id="is_urgent" name="is_urgent" type="checkbox" checked>
+                            {% else %}
+                                <input id="is_urgent" name="is_urgent" type="checkbox">
+                            {% endif %}
+                            <span class="lever"></span>
+                            Is Urgent
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <!-- existing category_id (using value attr) -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix cyan-text text-darken-4">assignment</i>
+                    <select id="category_id" name="category_id" class="validate" required>
+                        <option value="" disabled>Choose Category</option>
+                        <!-- loop for displaying the category options -->
+                        {% for category in categories %}
+                        <!-- checking which category is already chosen and selecting it -->
+                            {% if category == task.category %}
+                                <option value="{{ category.id }}" selected>{{ category.category_name }}</option>
+                            {% else %}
+                                <option value="{{ category.id }}">{{ category.category_name }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                    <label for="task_name">Category Name</label>
+                </div>
+            </div>
+            <!-- submit button -->
+            <div class="row">
+                <div class="input-field col s12 center-align">
+                    <button class="btn-large teal" type="submit">
+                        Edit Task <i class="material-icons right">brush</i>
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

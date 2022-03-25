@@ -7,3 +7,20 @@ body {
 main {
     flex: 1 0 auto;
 }
+
+/* to centralize the buttons in the modal */
+.modal-footer{
+    display: flex;
+    justify-content: space-around;
+}
+
+/* to colour an style the warning text */
+.warning-text{
+    background-color: #fff;
+    border-radius: 4px;
+    color:red;
+    text-transform: uppercase;
+    font-weight: 500;
+    word-spacing: 0.2em;
+    font-size: 16px;
+}

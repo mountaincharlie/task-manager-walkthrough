@@ -17,4 +17,8 @@ document.addEventListener('DOMContentLoaded', function(){
     // collabsilbe initialisation (see materialize collabsilbe doc)
     var collapsibles = document.querySelectorAll('.collapsible');
     M.Collapsible.init(collapsibles);
+
+    // modal initialisation (see materialize modal doc)
+    var modal = document.querySelectorAll('.modal');
+    M.Modal.init(modal);
 });

@@ -17,7 +17,7 @@ if os.environ.get("DEVELOPMENT") == "True":
 else:  # otherwise we want Heroku's one
     uri = os.environ.get("DATABASE_URL")
     if uri.startswith("postgres://"):
-        uri.replace("postgres://", "postgresql://", 1)
+        uri = uri.replace("postgres://", "postgresql://", 1)
     app.config["SQLALCHEMY_DATABASE_URI"] = uri
 
 # creating instance of the imported SQLAlchemy class

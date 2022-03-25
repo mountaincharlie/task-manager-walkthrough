@@ -1,5 +1,4 @@
-
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function(){
     // initialisation snippet for Materialize's sidenav (with custom var names)
     let sidenav = document.querySelectorAll('.sidenav');
     M.Sidenav.init(sidenav);
@@ -11,7 +10,11 @@ document.addEventListener('DOMContentLoaded', function() {
       i18n: {done: "select"},
     });
 
-    // select initialisation (see materialize datepicker doc)
+    // select initialisation (see materialize select doc)
     var selects = document.querySelectorAll('select');
     M.FormSelect.init(selects);
-  });
+
+    // collabsilbe initialisation (see materialize collabsilbe doc)
+    var collapsibles = document.querySelectorAll('.collapsible');
+    M.Collapsible.init(collapsibles);
+});

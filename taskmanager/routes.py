@@ -9,7 +9,7 @@ from taskmanager.models import Category, Task
 @app.route("/")
 def home():
     # querying the db for a cursor obj, converted to list, to populate the page
-    tasks = list(Task.query.order_by(Task.due_date).all())
+    tasks = list(Task.query.order_by(Task.id).all())
     # variables needed in the html page need to be passed in here (var_page=var_here)
     return render_template("tasks.html", tasks=tasks)
 

@@ -9,7 +9,12 @@ if os.path.exists("env.py"):
 # creating an instance of the imported Flask class
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.environ.get("SECRET_KEY")
-app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DB_URL")
+
+# if we are working in dev mode, we want the locally hosted db
+if os.environ.get("DEVELOPMENT") == True:
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DB_URL")
+else:  # otherwise we want Heroku's one
+    app.config["SQLALCHEMY_DATABASE_URI"] = os.environ.get("DATABASE_URL")
 
 # creating instance of the imported SQLAlchemy class
 db = SQLAlchemy(app)

@@ -8,7 +8,10 @@ from taskmanager.models import Category, Task
 # home view function (the task page)
 @app.route("/")
 def home():
-    return render_template("tasks.html")
+    # querying the db for a cursor obj, converted to list, to populate the page
+    tasks = list(Task.query.order_by(Task.due_date).all())
+    # variables needed in the html page need to be passed in here (var_page=var_here)
+    return render_template("tasks.html", tasks=tasks)
 
 
 # finds the asociated file, is called by the function name, renders the template
